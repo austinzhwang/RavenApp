@@ -76,8 +76,6 @@ public class Raven {
             System.out.println(response);
             chatHistory.add(response);
         }
-        posCount = 0;
-        negCount = 0;
     }
 
     // Runs the program again if the user does not enter N or n.
@@ -88,7 +86,7 @@ public class Raven {
             System.out.print(contTalking);
             String again = in.nextLine();
             chatHistory.add(contTalking + again);
-            if (again.equalsIgnoreCase("N")) {
+            if (!again.equalsIgnoreCase("Y")) {
                 String ended = "The chat has ended.";
                 System.out.println(ended);
                 chatHistory.add(ended);
