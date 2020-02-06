@@ -12,12 +12,18 @@ public class Raven {
     private String input = "";
     private Scanner in;
     private ArrayList<String> chatHistory;
+    private Invoice invoice;
+    private ArrayList<Invoice> invoiceList;
+    private int questionCounter;
 
     public Raven() {
         positive = new String [] {"good", "glad", "happy", "relaxed", "accomplished", "alert", "creative"};
         negative  = new String [] {"bad", "sad", "tired", "angry", "anxious", "hungry", "moody", "afraid"};
         in = new Scanner(System.in);
         chatHistory = new ArrayList<>();
+        invoice = new Invoice();
+        invoiceList = new ArrayList<>();
+        questionCounter = 0;
     }
 
     // Returns the user input
@@ -42,6 +48,7 @@ public class Raven {
         System.out.print(gm);
         input = in.nextLine();
         chatHistory.add(gm + input);
+        questionCounter++;
     }
 
     // Scans user input and increments the pos and neg counters depending on the input
@@ -105,6 +112,46 @@ public class Raven {
         for (String s : chatHistory) {
             System.out.println(s);
         }
+    }
+
+    // Method asks for the users info
+    public void askInfo() {
+        System.out.println("\nPlease enter your billing information below");
+        System.out.print("Enter your full name: ");
+        String name = in.nextLine();
+        invoice.setName(name);
+        System.out.print("Enter your street address: ");
+        String address = in.nextLine();
+        invoice.setStAddress(address);
+        System.out.print("Enter your city: ");
+        String city = in.nextLine();
+        invoice.setCity(city);
+        System.out.print("Enter your state: ");
+        String state = in.nextLine();
+        invoice.setState(state);
+        System.out.print("Enter your zip code: ");
+        int zip = in.nextInt();
+        invoice.setZipCode(zip);
+    }
+
+    public void addInvoice() {
+        invoiceList.add(new Invoice(1, "Session", 100, 1 * 100));
+        invoiceList.add(new Invoice(questionCounter, "Questions", .35, questionCounter * .35));
+    }
+
+    public void printInvoice() {
+        String s = "";
+        double total = 0;
+        invoice.printBillingInfo();
+        System.out.println("\nItems:");
+        for (Invoice i : invoiceList) {
+            s += i.getQuantity() + "\t\t" + i.getDescription() + "    " + i.getPrice() + "    " + i.getTotal() + "\n";
+            total += i.getTotal();
+        }
+        System.out.println("Quantity Description Price Total");
+        System.out.println(s);
+        System.out.println("Total due : $" + total + "\n");
+        System.out.println("Thank you for doing business with Raven");
     }
 
 }

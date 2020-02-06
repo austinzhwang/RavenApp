@@ -9,6 +9,8 @@ public class Main {
         raven.printRavenResponse();
         raven.again();
         raven.printHistory();
-
+        raven.askInfo();
+        raven.addInvoice();
+        raven.printInvoice();
     }
 }
